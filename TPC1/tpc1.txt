@@ -1,1 +1,3 @@
+Expressão regular que represente strings binárias que não incluam a subsequência "011".
 
+^(1*|1*0(0|10)*(1| ))$
