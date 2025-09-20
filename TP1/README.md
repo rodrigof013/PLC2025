@@ -3,7 +3,8 @@
 ## Autor
 - **Nome:** Rodrigo Lavandeira Fernandes
 - **ID:** A108401
-- **Foto:** ![Foto do Autor](foto.jpeg)
+- **Foto:** <img src="foto.jpeg" alt="Foto do autor" width="200">
+
 
 ## Resumo
 - Neste trabalho prático, foi-nos proposto determinar uma expressão regular de strings binárias que não incluíssem a subsequência "011". 
