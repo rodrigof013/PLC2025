@@ -2,4 +2,10 @@
 
 Este repositório tem como objetivo guardar os trabalhos práticos da cadeira de Processamento de Linguagens e Compiladores.
 
+## Autor
+- **Nome:** Rodrigo Lavandeira Fernandes
+- **ID:** A108401
+- **Foto:** 
+<img src="foto.jpeg" alt="Foto do autor" width="200">
+
 [Trabalho Prático 1](./TP1/)
