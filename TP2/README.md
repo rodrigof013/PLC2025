@@ -11,7 +11,7 @@ O objetivo deste trabalho prático foi criar em Python um pequeno conversor de M
 * Imagem: ![texto alternativo](path para a imagem).
 
 O meu raciocínio passou por identificar, linha a linha, quais correspondiam a cabeçalhos, usando re.match, convertê-los para HTML e acrescentar o resultado a uma lista resultado, que guarda todos os blocos do texto. 
-Segui o mesmo raciocínio para as linhas que fossem itens de lista. Para estes elementos descritivos usei uma variável lista_items, que guarda todos os itens da lista já convertidos para HTML. Quando a lista termina, envolvo os elementos de lista_items e adiciono tudo à lista resultado.
+Segui o mesmo raciocínio para as linhas que fossem itens de lista. Para estes elementos descritivos usei uma variável lista_itens, que guarda todos os itens da lista já convertidos para HTML. Quando a lista termina, envolvo os elementos de lista_itens e adiciono tudo à lista resultado.
 Por fim, para tratar as formatações inline restantes (negrito, itálico, links, imagens), criei a função converter_inline, que é aplicada a cada linha no momento certo, garantindo que o texto fica corretamente formatado em HTML.
 
 
