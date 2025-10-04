@@ -16,4 +16,4 @@ Por fim, para tratar as formatações inline restantes (negrito, itálico, links
 
 
 ## Lista de Resultados
-- [Expressão regular proposta pelo trabalho prático](tpc1.txt)
+- [Notebook com a solução do TP2](tp2.ipynb)
