@@ -6,7 +6,8 @@ Este repositório tem como objetivo guardar os trabalhos práticos da cadeira de
 - **Nome:** Rodrigo Lavandeira Fernandes
 - **ID:** A108401
 - **Foto:** 
-<img src="fotogit.jpeg" alt="Foto do autor" width="200">
+![Foto do autor](/home/rodrigo/fotogit.jpeg)
+
 
 [Trabalho Prático 1](./TP1/)
 [Trabalho Prático 2](./TP2/)
