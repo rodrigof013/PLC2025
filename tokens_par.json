@@ -1,0 +1,30 @@
+[
+    {
+        "id": "SEl",
+        "expreg": "SELECT"
+    },
+    {
+        "id": "FRM",
+        "expreg": "FROM"
+    },
+    {
+        "id": "WHR",
+        "expreg": "WHERE"
+    },
+    {
+        "id": "MAI",
+        "expreg": "\\>"
+    },
+    {
+        "id": "PV",
+        "expreg": ";"
+    },
+    {
+        "id": "INT",
+        "expreg": "\\d+"
+    },
+    {
+        "id": "IDEN",
+        "expreg": "\\w+"
+    }
+]
