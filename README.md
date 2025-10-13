@@ -12,3 +12,4 @@ Este repositório tem como objetivo guardar os trabalhos práticos da cadeira de
 
 * [Trabalho Prático 1](./TP1/)
 * [Trabalho Prático 2](./TP2/)
+* [Trabalho Prático 3](./TP3/)
