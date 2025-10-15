@@ -6,7 +6,7 @@ Este repositório tem como objetivo guardar os trabalhos práticos da cadeira de
 - **Nome:** Rodrigo Lavandeira Fernandes
 - **ID:** A108401
 - **Foto:** 
-<img src="foto.jpeg" alt="Foto do autor" width="200">
+<img src="github.jpeg" alt="Foto do autor" width="200">
 
 
 
