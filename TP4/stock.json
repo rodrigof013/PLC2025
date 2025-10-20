@@ -1,0 +1,62 @@
+[
+    {
+        "cod": "A23",
+        "nome": "Água 0.5L",
+        "quant": 8,
+        "preco": 0.7
+    },
+    {
+        "cod": "A24",
+        "nome": "Água 1.5L",
+        "quant": 12,
+        "preco": 1.2
+    },
+    {
+        "cod": "B10",
+        "nome": "Sumo de laranja 0.33L",
+        "quant": 10,
+        "preco": 1.0
+    },
+    {
+        "cod": "B11",
+        "nome": "Sumo de maçã 0.33L",
+        "quant": 5,
+        "preco": 1.0
+    },
+    {
+        "cod": "C05",
+        "nome": "Refrigerante cola 0.33L",
+        "quant": 15,
+        "preco": 1.2
+    },
+    {
+        "cod": "C06",
+        "nome": "Refrigerante limão 0.33L",
+        "quant": 9,
+        "preco": 1.2
+    },
+    {
+        "cod": "D01",
+        "nome": "Café expresso",
+        "quant": 23,
+        "preco": 0.8
+    },
+    {
+        "cod": "D02",
+        "nome": "Cappuccino",
+        "quant": 10,
+        "preco": 1.5
+    },
+    {
+        "cod": "E07",
+        "nome": "Bolacha maria (emb. 4un)",
+        "quant": 20,
+        "preco": 0.5
+    },
+    {
+        "cod": "E08",
+        "nome": "Barra de cereais",
+        "quant": 17,
+        "preco": 0.9
+    }
+]
