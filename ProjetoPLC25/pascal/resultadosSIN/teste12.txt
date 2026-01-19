@@ -1,0 +1,2 @@
+Análise Sintática: SUCESSO
+O código respeita a gramática definida.

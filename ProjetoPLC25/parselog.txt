@@ -1,0 +1,831 @@
+PLY: PARSE DEBUG START
+
+State  : 0
+Stack  : . LexToken(PROGRAM,'program',1,0)
+Action : Shift and goto state 2
+
+State  : 2
+Stack  : PROGRAM . LexToken(VARNAME,'SomaArray',1,8)
+Action : Shift and goto state 3
+
+State  : 3
+Stack  : PROGRAM VARNAME . LexToken(;,';',1,17)
+Action : Shift and goto state 4
+
+State  : 4
+Stack  : PROGRAM VARNAME ; . LexToken(VAR,'var',2,19)
+Action : Reduce rule [empty -> <empty>] with [] and goto state 6
+Result : <NoneType @ 0x9bc000> (None)
+
+State  : 6
+Stack  : PROGRAM VARNAME ; empty . LexToken(VAR,'var',2,19)
+Action : Reduce rule [bloco_declaracoes -> empty] with [None] and goto state 5
+Result : <list @ 0x75355ff25040> ([])
+
+State  : 5
+Stack  : PROGRAM VARNAME ; bloco_declaracoes . LexToken(VAR,'var',2,19)
+Action : Shift and goto state 18
+
+State  : 18
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR . LexToken(VARNAME,'numeros',3,29)
+Action : Shift and goto state 61
+
+State  : 61
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR VARNAME . LexToken(:,':',3,36)
+Action : Reduce rule [lista_identificadores -> VARNAME] with ['numeros'] and goto state 60
+Result : <list @ 0x75355fe0cdc0> (['numeros'])
+
+State  : 60
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores . LexToken(:,':',3,36)
+Action : Shift and goto state 107
+
+State  : 107
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : . LexToken(ARRAY,'array',3,38)
+Action : Shift and goto state 168
+
+State  : 168
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY . LexToken([,'[',3,43)
+Action : Shift and goto state 227
+
+State  : 227
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ . LexToken(INTVALUE,1,3,44)
+Action : Shift and goto state 174
+
+State  : 174
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ INTVALUE . LexToken(DOTDOT,'..',3,45)
+Action : Reduce rule [valor_constante -> INTVALUE] with [1] and goto state 165
+Result : <dict @ 0x75356019a280> ({'tipo': 'LITERAL', 'valor': 1, 'datatyp ...)
+
+State  : 165
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ valor_constante . LexToken(DOTDOT,'..',3,45)
+Action : Shift and goto state 222
+
+State  : 222
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ valor_constante DOTDOT . LexToken(INTVALUE,5,3,47)
+Action : Shift and goto state 174
+
+State  : 174
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ valor_constante DOTDOT INTVALUE . LexToken(],']',3,48)
+Action : Reduce rule [valor_constante -> INTVALUE] with [5] and goto state 254
+Result : <dict @ 0x75355ff59480> ({'tipo': 'LITERAL', 'valor': 5, 'datatyp ...)
+
+State  : 254
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ valor_constante DOTDOT valor_constante . LexToken(],']',3,48)
+Action : Reduce rule [subrange -> valor_constante DOTDOT valor_constante] with [<dict @ 0x75356019a280>,'..',<dict @ 0x75355ff59480>] and goto state 265
+Result : <dict @ 0x75355ff84ac0> ({'tipo': 'SUBRANGE', 'min': {'tipo': 'LI ...)
+
+State  : 265
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ subrange . LexToken(],']',3,48)
+Action : Reduce rule [indice -> subrange] with [<dict @ 0x75355ff84ac0>] and goto state 260
+Result : <dict @ 0x75355ff84ac0> ({'tipo': 'SUBRANGE', 'min': {'tipo': 'LI ...)
+
+State  : 260
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ indice . LexToken(],']',3,48)
+Action : Reduce rule [lista_indices -> indice] with [<dict @ 0x75355ff84ac0>] and goto state 259
+Result : <list @ 0x75355fe0d8c0> ([{'tipo': 'SUBRANGE', 'min': {'tipo': 'L ...)
+
+State  : 259
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ lista_indices . LexToken(],']',3,48)
+Action : Shift and goto state 285
+
+State  : 285
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ lista_indices ] . LexToken(OF,'of',3,50)
+Action : Shift and goto state 296
+
+State  : 296
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ lista_indices ] OF . LexToken(INTEGER,'integer',3,53)
+Action : Shift and goto state 170
+
+State  : 170
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ lista_indices ] OF INTEGER . LexToken(;,';',3,60)
+Action : Reduce rule [tipo_basico -> INTEGER] with ['integer'] and goto state 164
+Result : <str @ 0x7535601c0780> ('integer')
+
+State  : 164
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ lista_indices ] OF tipo_basico . LexToken(;,';',3,60)
+Action : Reduce rule [definicao_tipo -> tipo_basico] with ['integer'] and goto state 304
+Result : <str @ 0x7535601c0780> ('integer')
+
+State  : 304
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : ARRAY [ lista_indices ] OF definicao_tipo . LexToken(;,';',3,60)
+Action : Reduce rule [array -> ARRAY [ lista_indices ] OF definicao_tipo] with ['array','[',<list @ 0x75355fe0d8c0>,']','of','integer'] and goto state 162
+Result : <dict @ 0x75355ff59440> ({'tipo': 'ARRAY', 'packed': False, 'indi ...)
+
+State  : 162
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : array . LexToken(;,';',3,60)
+Action : Reduce rule [definicao_tipo -> array] with [<dict @ 0x75355ff59440>] and goto state 179
+Result : <dict @ 0x75355ff59440> ({'tipo': 'ARRAY', 'packed': False, 'indi ...)
+
+State  : 179
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : definicao_tipo . LexToken(;,';',3,60)
+Action : Shift and goto state 234
+
+State  : 234
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_identificadores : definicao_tipo ; . LexToken(VARNAME,'i',4,68)
+Action : Reduce rule [declaracao_var -> lista_identificadores : definicao_tipo ;] with [['numeros'],':',<dict @ 0x75355ff59440>,';'] and goto state 59
+Result : <dict @ 0x75355ff88b80> ({'tipo': 'DECL_VAR', 'nomes': ['numeros' ...)
+
+State  : 59
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR declaracao_var . LexToken(VARNAME,'i',4,68)
+Action : Reduce rule [lista_decl_vars -> declaracao_var] with [<dict @ 0x75355ff88b80>] and goto state 58
+Result : <list @ 0x75355ff24dc0> ([{'tipo': 'DECL_VAR', 'nomes': ['numeros ...)
+
+State  : 58
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars . LexToken(VARNAME,'i',4,68)
+Action : Shift and goto state 61
+
+State  : 61
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars VARNAME . LexToken(,,',',4,69)
+Action : Reduce rule [lista_identificadores -> VARNAME] with ['i'] and goto state 60
+Result : <list @ 0x75355fe0cd40> (['i'])
+
+State  : 60
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars lista_identificadores . LexToken(,,',',4,69)
+Action : Shift and goto state 108
+
+State  : 108
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars lista_identificadores , . LexToken(VARNAME,'soma',4,71)
+Action : Shift and goto state 180
+
+State  : 180
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars lista_identificadores , VARNAME . LexToken(:,':',4,75)
+Action : Reduce rule [lista_identificadores -> lista_identificadores , VARNAME] with [['i'],',','soma'] and goto state 60
+Result : <list @ 0x75355ff24b00> (['i', 'soma'])
+
+State  : 60
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars lista_identificadores . LexToken(:,':',4,75)
+Action : Shift and goto state 107
+
+State  : 107
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars lista_identificadores : . LexToken(INTEGER,'integer',4,77)
+Action : Shift and goto state 170
+
+State  : 170
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars lista_identificadores : INTEGER . LexToken(;,';',4,84)
+Action : Reduce rule [tipo_basico -> INTEGER] with ['integer'] and goto state 164
+Result : <str @ 0x75355ff519e0> ('integer')
+
+State  : 164
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars lista_identificadores : tipo_basico . LexToken(;,';',4,84)
+Action : Reduce rule [definicao_tipo -> tipo_basico] with ['integer'] and goto state 179
+Result : <str @ 0x75355ff519e0> ('integer')
+
+State  : 179
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars lista_identificadores : definicao_tipo . LexToken(;,';',4,84)
+Action : Shift and goto state 234
+
+State  : 234
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars lista_identificadores : definicao_tipo ; . LexToken(BEGIN,'begin',5,86)
+Action : Reduce rule [declaracao_var -> lista_identificadores : definicao_tipo ;] with [['i', 'soma'],':','integer',';'] and goto state 106
+Result : <dict @ 0x75355fe0e340> ({'tipo': 'DECL_VAR', 'nomes': ['i', 'som ...)
+
+State  : 106
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars declaracao_var . LexToken(BEGIN,'begin',5,86)
+Action : Reduce rule [lista_decl_vars -> lista_decl_vars declaracao_var] with [<list @ 0x75355ff24dc0>,<dict @ 0x75355fe0e340>] and goto state 58
+Result : <list @ 0x75355ff25100> ([{'tipo': 'DECL_VAR', 'nomes': ['numeros ...)
+
+State  : 58
+Stack  : PROGRAM VARNAME ; bloco_declaracoes VAR lista_decl_vars . LexToken(BEGIN,'begin',5,86)
+Action : Reduce rule [decl_vars -> VAR lista_decl_vars] with ['var',<list @ 0x75355ff25100>] and goto state 11
+Result : <dict @ 0x75355fe0e500> ({'tipo': 'DECL_VARS', 'vals': [{'tipo':  ...)
+
+State  : 11
+Stack  : PROGRAM VARNAME ; bloco_declaracoes decl_vars . LexToken(BEGIN,'begin',5,86)
+Action : Reduce rule [bloco_declaracoes -> bloco_declaracoes decl_vars] with [[],<dict @ 0x75355fe0e500>] and goto state 5
+Result : <list @ 0x75355ff24dc0> ([{'tipo': 'DECL_VARS', 'vals': [{'tipo': ...)
+
+State  : 5
+Stack  : PROGRAM VARNAME ; bloco_declaracoes . LexToken(BEGIN,'begin',5,86)
+Action : Shift and goto state 13
+
+State  : 13
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN . LexToken(VARNAME,'soma',6,98)
+Action : Shift and goto state 39
+
+State  : 39
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN VARNAME . LexToken(ATR,':=',6,103)
+Action : Reduce rule [l_value -> VARNAME] with ['soma'] and goto state 38
+Result : <dict @ 0x75355fe0e380> ({'tipo': 'VAR', 'nome': 'soma', 'linha': ...)
+
+State  : 38
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN l_value . LexToken(ATR,':=',6,103)
+Action : Shift and goto state 86
+
+State  : 86
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN l_value ATR . LexToken(INTVALUE,0,6,106)
+Action : Shift and goto state 81
+
+State  : 81
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN l_value ATR INTVALUE . LexToken(;,';',6,107)
+Action : Reduce rule [valor_literal -> INTVALUE] with [0] and goto state 79
+Result : <dict @ 0x75355fe0e540> ({'tipo': 'LITERAL', 'valor': 0, 'datatyp ...)
+
+State  : 79
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN l_value ATR valor_literal . LexToken(;,';',6,107)
+Action : Reduce rule [fator -> valor_literal] with [<dict @ 0x75355fe0e540>] and goto state 75
+Result : <dict @ 0x75355fe0e540> ({'tipo': 'LITERAL', 'valor': 0, 'datatyp ...)
+
+State  : 75
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN l_value ATR fator . LexToken(;,';',6,107)
+Action : Reduce rule [termo -> fator] with [<dict @ 0x75355fe0e540>] and goto state 73
+Result : <dict @ 0x75355fe0e540> ({'tipo': 'LITERAL', 'valor': 0, 'datatyp ...)
+
+State  : 73
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN l_value ATR termo . LexToken(;,';',6,107)
+Action : Reduce rule [expressao -> termo] with [<dict @ 0x75355fe0e540>] and goto state 137
+Result : <dict @ 0x75355fe0e540> ({'tipo': 'LITERAL', 'valor': 0, 'datatyp ...)
+
+State  : 137
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN l_value ATR expressao . LexToken(;,';',6,107)
+Action : Reduce rule [atribuicao -> l_value ATR expressao] with [<dict @ 0x75355fe0e380>,':=',<dict @ 0x75355fe0e540>] and goto state 28
+Result : <dict @ 0x75355fe0e600> ({'tipo': 'ATRIBUICAO', 'var': {'tipo': ' ...)
+
+State  : 28
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN atribuicao . LexToken(;,';',6,107)
+Action : Reduce rule [instrucao_composta -> atribuicao] with [<dict @ 0x75355fe0e600>] and goto state 26
+Result : <dict @ 0x75355fe0e600> ({'tipo': 'ATRIBUICAO', 'var': {'tipo': ' ...)
+
+State  : 26
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN instrucao_composta . LexToken(;,';',6,107)
+Action : Reduce rule [instrucao -> instrucao_composta] with [<dict @ 0x75355fe0e600>] and goto state 24
+Result : <dict @ 0x75355fe0e600> ({'tipo': 'ATRIBUICAO', 'var': {'tipo': ' ...)
+
+State  : 24
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN instrucao . LexToken(;,';',6,107)
+Action : Reduce rule [lista_instrucoes -> instrucao] with [<dict @ 0x75355fe0e600>] and goto state 23
+Result : <list @ 0x75355ff24640> ([{'tipo': 'ATRIBUICAO', 'var': {'tipo':  ...)
+
+State  : 23
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes . LexToken(;,';',6,107)
+Action : Shift and goto state 69
+
+State  : 69
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; . LexToken(WRITEL,'writeln',7,115)
+Action : Shift and goto state 43
+
+State  : 43
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL . LexToken((,'(',7,122)
+Action : Shift and goto state 93
+
+State  : 93
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( . LexToken(STRINGVALUE,"'Introduza 5 números inteiros:'",7,123)
+Action : Shift and goto state 84
+
+State  : 84
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( STRINGVALUE . LexToken(),')',7,154)
+Action : Reduce rule [valor_literal -> STRINGVALUE] with [<str @ 0x75355ff7bc90>] and goto state 79
+Result : <dict @ 0x75355fe0e680> ({'tipo': 'LITERAL', 'valor': "'Introduza ...)
+
+State  : 79
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( valor_literal . LexToken(),')',7,154)
+Action : Reduce rule [fator -> valor_literal] with [<dict @ 0x75355fe0e680>] and goto state 75
+Result : <dict @ 0x75355fe0e680> ({'tipo': 'LITERAL', 'valor': "'Introduza ...)
+
+State  : 75
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( fator . LexToken(),')',7,154)
+Action : Reduce rule [termo -> fator] with [<dict @ 0x75355fe0e680>] and goto state 73
+Result : <dict @ 0x75355fe0e680> ({'tipo': 'LITERAL', 'valor': "'Introduza ...)
+
+State  : 73
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( termo . LexToken(),')',7,154)
+Action : Reduce rule [expressao -> termo] with [<dict @ 0x75355fe0e680>] and goto state 149
+Result : <dict @ 0x75355fe0e680> ({'tipo': 'LITERAL', 'valor': "'Introduza ...)
+
+State  : 149
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( expressao . LexToken(),')',7,154)
+Action : Reduce rule [item_escrita -> expressao] with [<dict @ 0x75355fe0e680>] and goto state 148
+Result : <dict @ 0x75355fe0e580> ({'exp': {'tipo': 'LITERAL', 'valor': "'I ...)
+
+State  : 148
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( item_escrita . LexToken(),')',7,154)
+Action : Reduce rule [lista_escrita -> item_escrita] with [<dict @ 0x75355fe0e580>] and goto state 150
+Result : <list @ 0x75355ff25040> ([{'exp': {'tipo': 'LITERAL', 'valor': "' ...)
+
+State  : 150
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita . LexToken(),')',7,154)
+Action : Shift and goto state 210
+
+State  : 210
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita ) . LexToken(;,';',7,155)
+Action : Reduce rule [chamada_rotina -> WRITEL ( lista_escrita )] with ['writeln','(',<list @ 0x75355ff25040>,')'] and goto state 29
+Result : <dict @ 0x75355fe0e5c0> ({'tipo': 'WRITE', 'args': [{'exp': {'tip ...)
+
+State  : 29
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; chamada_rotina . LexToken(;,';',7,155)
+Action : Reduce rule [instrucao_composta -> chamada_rotina] with [<dict @ 0x75355fe0e5c0>] and goto state 26
+Result : <dict @ 0x75355fe0e5c0> ({'tipo': 'WRITE', 'args': [{'exp': {'tip ...)
+
+State  : 26
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; instrucao_composta . LexToken(;,';',7,155)
+Action : Reduce rule [instrucao -> instrucao_composta] with [<dict @ 0x75355fe0e5c0>] and goto state 114
+Result : <dict @ 0x75355fe0e5c0> ({'tipo': 'WRITE', 'args': [{'exp': {'tip ...)
+
+State  : 114
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; instrucao . LexToken(;,';',7,155)
+Action : Reduce rule [lista_instrucoes -> lista_instrucoes ; instrucao] with [<list @ 0x75355ff24640>,';',<dict @ 0x75355fe0e5c0>] and goto state 23
+Result : <list @ 0x75355ff24680> ([{'tipo': 'ATRIBUICAO', 'var': {'tipo':  ...)
+
+State  : 23
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes . LexToken(;,';',7,155)
+Action : Shift and goto state 69
+
+State  : 69
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; . LexToken(FOR,'for',8,161)
+Action : Shift and goto state 47
+
+State  : 47
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR . LexToken(VARNAME,'i',8,165)
+Action : Shift and goto state 97
+
+State  : 97
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME . LexToken(ATR,':=',8,167)
+Action : Shift and goto state 154
+
+State  : 154
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR . LexToken(INTVALUE,1,8,170)
+Action : Shift and goto state 81
+
+State  : 81
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR INTVALUE . LexToken(TO,'to',8,172)
+Action : Reduce rule [valor_literal -> INTVALUE] with [1] and goto state 79
+Result : <dict @ 0x75355fe0e640> ({'tipo': 'LITERAL', 'valor': 1, 'datatyp ...)
+
+State  : 79
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR valor_literal . LexToken(TO,'to',8,172)
+Action : Reduce rule [fator -> valor_literal] with [<dict @ 0x75355fe0e640>] and goto state 75
+Result : <dict @ 0x75355fe0e640> ({'tipo': 'LITERAL', 'valor': 1, 'datatyp ...)
+
+State  : 75
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR fator . LexToken(TO,'to',8,172)
+Action : Reduce rule [termo -> fator] with [<dict @ 0x75355fe0e640>] and goto state 73
+Result : <dict @ 0x75355fe0e640> ({'tipo': 'LITERAL', 'valor': 1, 'datatyp ...)
+
+State  : 73
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR termo . LexToken(TO,'to',8,172)
+Action : Reduce rule [expressao -> termo] with [<dict @ 0x75355fe0e640>] and goto state 219
+Result : <dict @ 0x75355fe0e640> ({'tipo': 'LITERAL', 'valor': 1, 'datatyp ...)
+
+State  : 219
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao . LexToken(TO,'to',8,172)
+Action : Shift and goto state 252
+
+State  : 252
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao TO . LexToken(INTVALUE,5,8,175)
+Action : Reduce rule [passo -> TO] with ['to'] and goto state 251
+Result : <str @ 0x75355fe00b70> ('to')
+
+State  : 251
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo . LexToken(INTVALUE,5,8,175)
+Action : Shift and goto state 81
+
+State  : 81
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo INTVALUE . LexToken(DO,'do',8,177)
+Action : Reduce rule [valor_literal -> INTVALUE] with [5] and goto state 79
+Result : <dict @ 0x75355fe0e6c0> ({'tipo': 'LITERAL', 'valor': 5, 'datatyp ...)
+
+State  : 79
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo valor_literal . LexToken(DO,'do',8,177)
+Action : Reduce rule [fator -> valor_literal] with [<dict @ 0x75355fe0e6c0>] and goto state 75
+Result : <dict @ 0x75355fe0e6c0> ({'tipo': 'LITERAL', 'valor': 5, 'datatyp ...)
+
+State  : 75
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo fator . LexToken(DO,'do',8,177)
+Action : Reduce rule [termo -> fator] with [<dict @ 0x75355fe0e6c0>] and goto state 73
+Result : <dict @ 0x75355fe0e6c0> ({'tipo': 'LITERAL', 'valor': 5, 'datatyp ...)
+
+State  : 73
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo termo . LexToken(DO,'do',8,177)
+Action : Reduce rule [expressao -> termo] with [<dict @ 0x75355fe0e6c0>] and goto state 282
+Result : <dict @ 0x75355fe0e6c0> ({'tipo': 'LITERAL', 'valor': 5, 'datatyp ...)
+
+State  : 282
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao . LexToken(DO,'do',8,177)
+Action : Shift and goto state 294
+
+State  : 294
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO . LexToken(BEGIN,'begin',9,185)
+Action : Shift and goto state 22
+
+State  : 22
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN . LexToken(READL,'readln',10,203)
+Action : Shift and goto state 41
+
+State  : 41
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL . LexToken((,'(',10,209)
+Action : Shift and goto state 91
+
+State  : 91
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( . LexToken(VARNAME,'numeros',10,210)
+Action : Shift and goto state 145
+
+State  : 145
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( VARNAME . LexToken([,'[',10,217)
+Action : Reduce rule [l_value -> VARNAME] with ['numeros'] and goto state 144
+Result : <dict @ 0x75355fe0e700> ({'tipo': 'VAR', 'nome': 'numeros', 'linh ...)
+
+State  : 144
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( l_value . LexToken([,'[',10,217)
+Action : Shift and goto state 87
+
+State  : 87
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( l_value [ . LexToken(VARNAME,'i',10,218)
+Action : Shift and goto state 39
+
+State  : 39
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( l_value [ VARNAME . LexToken(],']',10,219)
+Action : Reduce rule [l_value -> VARNAME] with ['i'] and goto state 80
+Result : <dict @ 0x75355fe0e740> ({'tipo': 'VAR', 'nome': 'i', 'linha': 10 ...)
+
+State  : 80
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( l_value [ l_value . LexToken(],']',10,219)
+Action : Reduce rule [fator -> l_value] with [<dict @ 0x75355fe0e740>] and goto state 75
+Result : <dict @ 0x75355fe0e740> ({'tipo': 'VAR', 'nome': 'i', 'linha': 10 ...)
+
+State  : 75
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( l_value [ fator . LexToken(],']',10,219)
+Action : Reduce rule [termo -> fator] with [<dict @ 0x75355fe0e740>] and goto state 73
+Result : <dict @ 0x75355fe0e740> ({'tipo': 'VAR', 'nome': 'i', 'linha': 10 ...)
+
+State  : 73
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( l_value [ termo . LexToken(],']',10,219)
+Action : Reduce rule [expressao -> termo] with [<dict @ 0x75355fe0e740>] and goto state 139
+Result : <dict @ 0x75355fe0e740> ({'tipo': 'VAR', 'nome': 'i', 'linha': 10 ...)
+
+State  : 139
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( l_value [ expressao . LexToken(],']',10,219)
+Action : Reduce rule [lista_indices_expressao -> expressao] with [<dict @ 0x75355fe0e740>] and goto state 138
+Result : <list @ 0x75355fe0cd40> ([{'tipo': 'VAR', 'nome': 'i', 'linha': 1 ...)
+
+State  : 138
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( l_value [ lista_indices_expressao . LexToken(],']',10,219)
+Action : Shift and goto state 200
+
+State  : 200
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( l_value [ lista_indices_expressao ] . LexToken(),')',10,220)
+Action : Reduce rule [l_value -> l_value [ lista_indices_expressao ]] with [<dict @ 0x75355fe0e700>,'[',<list @ 0x75355fe0cd40>,']'] and goto state 144
+Result : <dict @ 0x75355fe0e780> ({'tipo': 'ARRAY_ACCESS', 'target': {'tip ...)
+
+State  : 144
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( l_value . LexToken(),')',10,220)
+Action : Reduce rule [lista_leitura -> l_value] with [<dict @ 0x75355fe0e780>] and goto state 146
+Result : <list @ 0x75355ff24cc0> ([{'tipo': 'ARRAY_ACCESS', 'target': {'ti ...)
+
+State  : 146
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( lista_leitura . LexToken(),')',10,220)
+Action : Shift and goto state 206
+
+State  : 206
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN READL ( lista_leitura ) . LexToken(;,';',10,221)
+Action : Reduce rule [chamada_rotina -> READL ( lista_leitura )] with ['readln','(',<list @ 0x75355ff24cc0>,')'] and goto state 29
+Result : <dict @ 0x75355fe0e7c0> ({'tipo': 'READ', 'args': [{'tipo': 'ARRA ...)
+
+State  : 29
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN chamada_rotina . LexToken(;,';',10,221)
+Action : Reduce rule [instrucao_composta -> chamada_rotina] with [<dict @ 0x75355fe0e7c0>] and goto state 26
+Result : <dict @ 0x75355fe0e7c0> ({'tipo': 'READ', 'args': [{'tipo': 'ARRA ...)
+
+State  : 26
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN instrucao_composta . LexToken(;,';',10,221)
+Action : Reduce rule [instrucao -> instrucao_composta] with [<dict @ 0x75355fe0e7c0>] and goto state 24
+Result : <dict @ 0x75355fe0e7c0> ({'tipo': 'READ', 'args': [{'tipo': 'ARRA ...)
+
+State  : 24
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN instrucao . LexToken(;,';',10,221)
+Action : Reduce rule [lista_instrucoes -> instrucao] with [<dict @ 0x75355fe0e7c0>] and goto state 66
+Result : <list @ 0x75355fddfe00> ([{'tipo': 'READ', 'args': [{'tipo': 'ARR ...)
+
+State  : 66
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes . LexToken(;,';',10,221)
+Action : Shift and goto state 69
+
+State  : 69
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; . LexToken(VARNAME,'soma',11,235)
+Action : Shift and goto state 39
+
+State  : 39
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; VARNAME . LexToken(ATR,':=',11,240)
+Action : Reduce rule [l_value -> VARNAME] with ['soma'] and goto state 38
+Result : <dict @ 0x75355fe0e800> ({'tipo': 'VAR', 'nome': 'soma', 'linha': ...)
+
+State  : 38
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value . LexToken(ATR,':=',11,240)
+Action : Shift and goto state 86
+
+State  : 86
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR . LexToken(VARNAME,'soma',11,243)
+Action : Shift and goto state 39
+
+State  : 39
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR VARNAME . LexToken(+,'+',11,248)
+Action : Reduce rule [l_value -> VARNAME] with ['soma'] and goto state 80
+Result : <dict @ 0x75355fe0e840> ({'tipo': 'VAR', 'nome': 'soma', 'linha': ...)
+
+State  : 80
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR l_value . LexToken(+,'+',11,248)
+Action : Reduce rule [fator -> l_value] with [<dict @ 0x75355fe0e840>] and goto state 75
+Result : <dict @ 0x75355fe0e840> ({'tipo': 'VAR', 'nome': 'soma', 'linha': ...)
+
+State  : 75
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR fator . LexToken(+,'+',11,248)
+Action : Reduce rule [termo -> fator] with [<dict @ 0x75355fe0e840>] and goto state 73
+Result : <dict @ 0x75355fe0e840> ({'tipo': 'VAR', 'nome': 'soma', 'linha': ...)
+
+State  : 73
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR termo . LexToken(+,'+',11,248)
+Action : Reduce rule [expressao -> termo] with [<dict @ 0x75355fe0e840>] and goto state 137
+Result : <dict @ 0x75355fe0e840> ({'tipo': 'VAR', 'nome': 'soma', 'linha': ...)
+
+State  : 137
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao . LexToken(+,'+',11,248)
+Action : Shift and goto state 118
+
+State  : 118
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + . LexToken(VARNAME,'numeros',11,250)
+Action : Shift and goto state 39
+
+State  : 39
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + VARNAME . LexToken([,'[',11,257)
+Action : Reduce rule [l_value -> VARNAME] with ['numeros'] and goto state 80
+Result : <dict @ 0x75355fe0e880> ({'tipo': 'VAR', 'nome': 'numeros', 'linh ...)
+
+State  : 80
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + l_value . LexToken([,'[',11,257)
+Action : Shift and goto state 87
+
+State  : 87
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + l_value [ . LexToken(VARNAME,'i',11,258)
+Action : Shift and goto state 39
+
+State  : 39
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + l_value [ VARNAME . LexToken(],']',11,259)
+Action : Reduce rule [l_value -> VARNAME] with ['i'] and goto state 80
+Result : <dict @ 0x75355fe0e8c0> ({'tipo': 'VAR', 'nome': 'i', 'linha': 11 ...)
+
+State  : 80
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + l_value [ l_value . LexToken(],']',11,259)
+Action : Reduce rule [fator -> l_value] with [<dict @ 0x75355fe0e8c0>] and goto state 75
+Result : <dict @ 0x75355fe0e8c0> ({'tipo': 'VAR', 'nome': 'i', 'linha': 11 ...)
+
+State  : 75
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + l_value [ fator . LexToken(],']',11,259)
+Action : Reduce rule [termo -> fator] with [<dict @ 0x75355fe0e8c0>] and goto state 73
+Result : <dict @ 0x75355fe0e8c0> ({'tipo': 'VAR', 'nome': 'i', 'linha': 11 ...)
+
+State  : 73
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + l_value [ termo . LexToken(],']',11,259)
+Action : Reduce rule [expressao -> termo] with [<dict @ 0x75355fe0e8c0>] and goto state 139
+Result : <dict @ 0x75355fe0e8c0> ({'tipo': 'VAR', 'nome': 'i', 'linha': 11 ...)
+
+State  : 139
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + l_value [ expressao . LexToken(],']',11,259)
+Action : Reduce rule [lista_indices_expressao -> expressao] with [<dict @ 0x75355fe0e8c0>] and goto state 138
+Result : <list @ 0x75355ff24640> ([{'tipo': 'VAR', 'nome': 'i', 'linha': 1 ...)
+
+State  : 138
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + l_value [ lista_indices_expressao . LexToken(],']',11,259)
+Action : Shift and goto state 200
+
+State  : 200
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + l_value [ lista_indices_expressao ] . LexToken(;,';',11,260)
+Action : Reduce rule [l_value -> l_value [ lista_indices_expressao ]] with [<dict @ 0x75355fe0e880>,'[',<list @ 0x75355ff24640>,']'] and goto state 80
+Result : <dict @ 0x75355fe0e900> ({'tipo': 'ARRAY_ACCESS', 'target': {'tip ...)
+
+State  : 80
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + l_value . LexToken(;,';',11,260)
+Action : Reduce rule [fator -> l_value] with [<dict @ 0x75355fe0e900>] and goto state 75
+Result : <dict @ 0x75355fe0e900> ({'tipo': 'ARRAY_ACCESS', 'target': {'tip ...)
+
+State  : 75
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + fator . LexToken(;,';',11,260)
+Action : Reduce rule [termo -> fator] with [<dict @ 0x75355fe0e900>] and goto state 191
+Result : <dict @ 0x75355fe0e900> ({'tipo': 'ARRAY_ACCESS', 'target': {'tip ...)
+
+State  : 191
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao + termo . LexToken(;,';',11,260)
+Action : Reduce rule [expressao -> expressao + termo] with [<dict @ 0x75355fe0e840>,'+',<dict @ 0x75355fe0e900>] and goto state 137
+Result : <dict @ 0x75355fe0e940> ({'op': '+', 'left': {'tipo': 'VAR', 'nom ...)
+
+State  : 137
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; l_value ATR expressao . LexToken(;,';',11,260)
+Action : Reduce rule [atribuicao -> l_value ATR expressao] with [<dict @ 0x75355fe0e800>,':=',<dict @ 0x75355fe0e940>] and goto state 28
+Result : <dict @ 0x75355fe0e980> ({'tipo': 'ATRIBUICAO', 'var': {'tipo': ' ...)
+
+State  : 28
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; atribuicao . LexToken(;,';',11,260)
+Action : Reduce rule [instrucao_composta -> atribuicao] with [<dict @ 0x75355fe0e980>] and goto state 26
+Result : <dict @ 0x75355fe0e980> ({'tipo': 'ATRIBUICAO', 'var': {'tipo': ' ...)
+
+State  : 26
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; instrucao_composta . LexToken(;,';',11,260)
+Action : Reduce rule [instrucao -> instrucao_composta] with [<dict @ 0x75355fe0e980>] and goto state 114
+Result : <dict @ 0x75355fe0e980> ({'tipo': 'ATRIBUICAO', 'var': {'tipo': ' ...)
+
+State  : 114
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; instrucao . LexToken(;,';',11,260)
+Action : Reduce rule [lista_instrucoes -> lista_instrucoes ; instrucao] with [<list @ 0x75355fddfe00>,';',<dict @ 0x75355fe0e980>] and goto state 66
+Result : <list @ 0x75355fe0cec0> ([{'tipo': 'READ', 'args': [{'tipo': 'ARR ...)
+
+State  : 66
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes . LexToken(;,';',11,260)
+Action : Shift and goto state 69
+
+State  : 69
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; . LexToken(END,'end',12,266)
+Action : Reduce rule [empty -> <empty>] with [] and goto state 115
+Result : <NoneType @ 0x9bc000> (None)
+
+State  : 115
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; empty . LexToken(END,'end',12,266)
+Action : Reduce rule [instrucao -> empty] with [None] and goto state 114
+Result : <NoneType @ 0x9bc000> (None)
+
+State  : 114
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes ; instrucao . LexToken(END,'end',12,266)
+Action : Reduce rule [lista_instrucoes -> lista_instrucoes ; instrucao] with [<list @ 0x75355fe0cec0>,';',None] and goto state 66
+Result : <list @ 0x75355fe0cec0> ([{'tipo': 'READ', 'args': [{'tipo': 'ARR ...)
+
+State  : 66
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes . LexToken(END,'end',12,266)
+Action : Shift and goto state 113
+
+State  : 113
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO BEGIN lista_instrucoes END . LexToken(;,';',12,269)
+Action : Reduce rule [bloco_codigo -> BEGIN lista_instrucoes END] with ['begin',<list @ 0x75355fe0cec0>,'end'] and goto state 30
+Result : <dict @ 0x75355fe0e9c0> ({'tipo': 'BLOCO', 'instrucoes': [{'tipo' ...)
+
+State  : 30
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO bloco_codigo . LexToken(;,';',12,269)
+Action : Reduce rule [instrucao_composta -> bloco_codigo] with [<dict @ 0x75355fe0e9c0>] and goto state 26
+Result : <dict @ 0x75355fe0e9c0> ({'tipo': 'BLOCO', 'instrucoes': [{'tipo' ...)
+
+State  : 26
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO instrucao_composta . LexToken(;,';',12,269)
+Action : Reduce rule [instrucao -> instrucao_composta] with [<dict @ 0x75355fe0e9c0>] and goto state 302
+Result : <dict @ 0x75355fe0e9c0> ({'tipo': 'BLOCO', 'instrucoes': [{'tipo' ...)
+
+State  : 302
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; FOR VARNAME ATR expressao passo expressao DO instrucao . LexToken(;,';',12,269)
+Action : Reduce rule [ciclo_for -> FOR VARNAME ATR expressao passo expressao DO instrucao] with ['for','i',':=',<dict @ 0x75355fe0e640>,'to',<dict @ 0x75355fe0e6c0>,'do',<dict @ 0x75355fe0e9c0>] and goto state 34
+Result : <dict @ 0x75355fe0ea00> ({'tipo': 'FOR', 'var': 'i', 'inicio': {' ...)
+
+State  : 34
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; ciclo_for . LexToken(;,';',12,269)
+Action : Reduce rule [instrucao_composta -> ciclo_for] with [<dict @ 0x75355fe0ea00>] and goto state 26
+Result : <dict @ 0x75355fe0ea00> ({'tipo': 'FOR', 'var': 'i', 'inicio': {' ...)
+
+State  : 26
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; instrucao_composta . LexToken(;,';',12,269)
+Action : Reduce rule [instrucao -> instrucao_composta] with [<dict @ 0x75355fe0ea00>] and goto state 114
+Result : <dict @ 0x75355fe0ea00> ({'tipo': 'FOR', 'var': 'i', 'inicio': {' ...)
+
+State  : 114
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; instrucao . LexToken(;,';',12,269)
+Action : Reduce rule [lista_instrucoes -> lista_instrucoes ; instrucao] with [<list @ 0x75355ff24680>,';',<dict @ 0x75355fe0ea00>] and goto state 23
+Result : <list @ 0x75355fdd3bc0> ([{'tipo': 'ATRIBUICAO', 'var': {'tipo':  ...)
+
+State  : 23
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes . LexToken(;,';',12,269)
+Action : Shift and goto state 69
+
+State  : 69
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; . LexToken(WRITEL,'writeln',14,282)
+Action : Shift and goto state 43
+
+State  : 43
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL . LexToken((,'(',14,289)
+Action : Shift and goto state 93
+
+State  : 93
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( . LexToken(STRINGVALUE,"'A soma dos números é: '",14,290)
+Action : Shift and goto state 84
+
+State  : 84
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( STRINGVALUE . LexToken(,,',',14,314)
+Action : Reduce rule [valor_literal -> STRINGVALUE] with [<str @ 0x7535600eff30>] and goto state 79
+Result : <dict @ 0x75355fe0ea40> ({'tipo': 'LITERAL', 'valor': "'A soma do ...)
+
+State  : 79
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( valor_literal . LexToken(,,',',14,314)
+Action : Reduce rule [fator -> valor_literal] with [<dict @ 0x75355fe0ea40>] and goto state 75
+Result : <dict @ 0x75355fe0ea40> ({'tipo': 'LITERAL', 'valor': "'A soma do ...)
+
+State  : 75
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( fator . LexToken(,,',',14,314)
+Action : Reduce rule [termo -> fator] with [<dict @ 0x75355fe0ea40>] and goto state 73
+Result : <dict @ 0x75355fe0ea40> ({'tipo': 'LITERAL', 'valor': "'A soma do ...)
+
+State  : 73
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( termo . LexToken(,,',',14,314)
+Action : Reduce rule [expressao -> termo] with [<dict @ 0x75355fe0ea40>] and goto state 149
+Result : <dict @ 0x75355fe0ea40> ({'tipo': 'LITERAL', 'valor': "'A soma do ...)
+
+State  : 149
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( expressao . LexToken(,,',',14,314)
+Action : Reduce rule [item_escrita -> expressao] with [<dict @ 0x75355fe0ea40>] and goto state 148
+Result : <dict @ 0x75355fe0ea80> ({'exp': {'tipo': 'LITERAL', 'valor': "'A ...)
+
+State  : 148
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( item_escrita . LexToken(,,',',14,314)
+Action : Reduce rule [lista_escrita -> item_escrita] with [<dict @ 0x75355fe0ea80>] and goto state 150
+Result : <list @ 0x75355ff24b40> ([{'exp': {'tipo': 'LITERAL', 'valor': "' ...)
+
+State  : 150
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita . LexToken(,,',',14,314)
+Action : Shift and goto state 208
+
+State  : 208
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita , . LexToken(VARNAME,'soma',14,316)
+Action : Shift and goto state 39
+
+State  : 39
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita , VARNAME . LexToken(),')',14,320)
+Action : Reduce rule [l_value -> VARNAME] with ['soma'] and goto state 80
+Result : <dict @ 0x75355fe0eb00> ({'tipo': 'VAR', 'nome': 'soma', 'linha': ...)
+
+State  : 80
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita , l_value . LexToken(),')',14,320)
+Action : Reduce rule [fator -> l_value] with [<dict @ 0x75355fe0eb00>] and goto state 75
+Result : <dict @ 0x75355fe0eb00> ({'tipo': 'VAR', 'nome': 'soma', 'linha': ...)
+
+State  : 75
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita , fator . LexToken(),')',14,320)
+Action : Reduce rule [termo -> fator] with [<dict @ 0x75355fe0eb00>] and goto state 73
+Result : <dict @ 0x75355fe0eb00> ({'tipo': 'VAR', 'nome': 'soma', 'linha': ...)
+
+State  : 73
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita , termo . LexToken(),')',14,320)
+Action : Reduce rule [expressao -> termo] with [<dict @ 0x75355fe0eb00>] and goto state 149
+Result : <dict @ 0x75355fe0eb00> ({'tipo': 'VAR', 'nome': 'soma', 'linha': ...)
+
+State  : 149
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita , expressao . LexToken(),')',14,320)
+Action : Reduce rule [item_escrita -> expressao] with [<dict @ 0x75355fe0eb00>] and goto state 245
+Result : <dict @ 0x75355fe0eb40> ({'exp': {'tipo': 'VAR', 'nome': 'soma',  ...)
+
+State  : 245
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita , item_escrita . LexToken(),')',14,320)
+Action : Reduce rule [lista_escrita -> lista_escrita , item_escrita] with [<list @ 0x75355ff24b40>,',',<dict @ 0x75355fe0eb40>] and goto state 150
+Result : <list @ 0x75355ff24980> ([{'exp': {'tipo': 'LITERAL', 'valor': "' ...)
+
+State  : 150
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita . LexToken(),')',14,320)
+Action : Shift and goto state 210
+
+State  : 210
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; WRITEL ( lista_escrita ) . LexToken(;,';',14,321)
+Action : Reduce rule [chamada_rotina -> WRITEL ( lista_escrita )] with ['writeln','(',<list @ 0x75355ff24980>,')'] and goto state 29
+Result : <dict @ 0x75355fe0eac0> ({'tipo': 'WRITE', 'args': [{'exp': {'tip ...)
+
+State  : 29
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; chamada_rotina . LexToken(;,';',14,321)
+Action : Reduce rule [instrucao_composta -> chamada_rotina] with [<dict @ 0x75355fe0eac0>] and goto state 26
+Result : <dict @ 0x75355fe0eac0> ({'tipo': 'WRITE', 'args': [{'exp': {'tip ...)
+
+State  : 26
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; instrucao_composta . LexToken(;,';',14,321)
+Action : Reduce rule [instrucao -> instrucao_composta] with [<dict @ 0x75355fe0eac0>] and goto state 114
+Result : <dict @ 0x75355fe0eac0> ({'tipo': 'WRITE', 'args': [{'exp': {'tip ...)
+
+State  : 114
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; instrucao . LexToken(;,';',14,321)
+Action : Reduce rule [lista_instrucoes -> lista_instrucoes ; instrucao] with [<list @ 0x75355fdd3bc0>,';',<dict @ 0x75355fe0eac0>] and goto state 23
+Result : <list @ 0x75355ff24b40> ([{'tipo': 'ATRIBUICAO', 'var': {'tipo':  ...)
+
+State  : 23
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes . LexToken(;,';',14,321)
+Action : Shift and goto state 69
+
+State  : 69
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; . LexToken(ENDPROGRAM,'end.',15,323)
+Action : Reduce rule [empty -> <empty>] with [] and goto state 115
+Result : <NoneType @ 0x9bc000> (None)
+
+State  : 115
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; empty . LexToken(ENDPROGRAM,'end.',15,323)
+Action : Reduce rule [instrucao -> empty] with [None] and goto state 114
+Result : <NoneType @ 0x9bc000> (None)
+
+State  : 114
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ; instrucao . LexToken(ENDPROGRAM,'end.',15,323)
+Action : Reduce rule [lista_instrucoes -> lista_instrucoes ; instrucao] with [<list @ 0x75355ff24b40>,';',None] and goto state 23
+Result : <list @ 0x75355ff24b40> ([{'tipo': 'ATRIBUICAO', 'var': {'tipo':  ...)
+
+State  : 23
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes . LexToken(ENDPROGRAM,'end.',15,323)
+Action : Shift and goto state 67
+
+State  : 67
+Stack  : PROGRAM VARNAME ; bloco_declaracoes BEGIN lista_instrucoes ENDPROGRAM . $end
+Action : Reduce rule [bloco_main -> BEGIN lista_instrucoes ENDPROGRAM] with ['begin',<list @ 0x75355ff24b40>,'end.'] and goto state 7
+Result : <list @ 0x75355ff24b40> ([{'tipo': 'ATRIBUICAO', 'var': {'tipo':  ...)
+
+State  : 7
+Defaulted state 7: Reduce using 1
+Stack  : PROGRAM VARNAME ; bloco_declaracoes bloco_main . $end
+Action : Reduce rule [programa -> PROGRAM VARNAME ; bloco_declaracoes bloco_main] with ['program','SomaArray',';',<list @ 0x75355ff24dc0>,<list @ 0x75355ff24b40>] and goto state 1
+Result : <dict @ 0x75355fe0ebc0> ({'nome': 'SomaArray', 'decl': [{'tipo':  ...)
+
+State  : 1
+Stack  : programa . $end
+Done   : Returning <dict @ 0x75355fe0ebc0> ({'nome': 'SomaArray', 'decl': [{'tipo':  ...)
+PLY: PARSE DEBUG END

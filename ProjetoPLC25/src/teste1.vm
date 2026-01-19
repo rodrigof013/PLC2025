@@ -1,0 +1,7 @@
+jump main
+main:
+start
+pushs "Ola, Mundo!"
+writes
+writeln
+stop

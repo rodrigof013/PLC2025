@@ -1,0 +1,11 @@
+--- Tokens gerados para: teste1.pp ---
+LexToken(PROGRAM,'program',1,0)
+LexToken(VARNAME,'HelloWorld',1,8)
+LexToken(;,';',1,18)
+LexToken(BEGIN,'begin',2,20)
+LexToken(WRITEL,'writeln',3,32)
+LexToken((,'(',3,39)
+LexToken(STRINGVALUE,'Ola, Mundo!',3,40)
+LexToken(),')',3,53)
+LexToken(;,';',3,54)
+LexToken(ENDPROGRAM,'end.',4,56)

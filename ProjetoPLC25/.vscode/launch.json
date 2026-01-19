@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug: Teste Gramática (Atual)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/testeGram.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "justMyCode": false
+    },
+    {
+      "name": "Debug: Teste Lexer",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/teste.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
