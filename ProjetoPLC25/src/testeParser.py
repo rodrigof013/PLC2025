@@ -15,7 +15,7 @@ class Cores:
     NEGRITO = '\033[1m'
 
 # Para ler de um ficheiro específico:
-with open('pascal/teste2.pp', 'r', encoding='utf-8') as f:
+with open('pascal/teste9.pp', 'r', encoding='utf-8') as f:
     conteudo = f.read()
 
     ast = parser.parse(conteudo)

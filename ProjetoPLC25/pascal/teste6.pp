@@ -3,7 +3,7 @@ var
     N, N1, N2: integer;
     R: real;
     fa : array[1..10,1..20] of integer;
-    epst : array[1..10] of real;
+    epst : array[1..10] of integer;
     aluno : RECORD
               numero : integer;
               nota   : real;
@@ -16,9 +16,7 @@ begin
     write('Introduz outro: ');
     readln(N2);
     N := N1 + N2;
-    epst[1] := 1.2;
-    fa[1][fa[1][1]]:= 1;
-    aluno.numero:=2;
-    aluno.nota:=10.2;
-    write(N1, ' + ', N2, ' é igual a ', N);
+    epst[1] := 1;
+    fa[1][1]:= epst[1];
+    epst[2]:=fa[1][1];
 end.

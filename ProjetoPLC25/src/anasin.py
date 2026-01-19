@@ -3,7 +3,6 @@ from analex import tokens,literals,lexer
 from Erros import Erros
 import sys
 
-# Excepção personalizada para erros sintáticos (evita traceback feio)
 class ErroSintaxe(Exception):
     pass
 
@@ -13,7 +12,6 @@ def p_programa(p):
     'programa : PROGRAM VARNAME ";" bloco_declaracoes bloco_main'
     p[0] = {'nome':p[2], 'decl':p[4], 'main':p[5]}
 
-# Error production para programa sem ;
 def p_programa_error_no_semicolon(p):
     'programa : PROGRAM VARNAME error'
     raise Exception(Erros.get('sin', p.lineno(2), 'FALTA_PONTO_VIRGULA', elemento='nome do programa'))
@@ -231,7 +229,6 @@ def p_instrucao_composta_if(p):
     'instrucao_composta : IF condicao THEN instrucao_composta ELSE instrucao_composta'
     p[0] = {'tipo': 'IF', 'cond': p[2], 'then': p[4], 'else': p[6], 'linha': p.lineno(1)}
 
-# Error productions para IF
 def p_instrucao_if_error_no_then(p):
     'instrucao_composta : IF condicao error'
     raise Exception(Erros.get('sin', p.lineno(1), 'FALTA_THEN'))
@@ -335,7 +332,6 @@ def p_ciclo_while(p):
     'ciclo_while : WHILE condicao DO instrucao'
     p[0] = {'tipo': 'WHILE', 'cond': p[2], 'do': p[4], 'linha': p.lineno(1)}
 
-# Error production para WHILE
 def p_ciclo_while_error_no_do(p):
     'ciclo_while : WHILE condicao error'
     raise Exception(Erros.get('sin', p.lineno(1), 'FALTA_DO', ciclo='WHILE'))
@@ -348,7 +344,6 @@ def p_ciclo_for(p):
     'ciclo_for : FOR VARNAME ATR expressao passo expressao DO instrucao'
     p[0] = {'tipo': 'FOR', 'var': p[2], 'inicio': p[4], 'passo': p[5], 'fim': p[6], 'do': p[8], 'linha': p.lineno(1)}
 
-# Error production para FOR
 def p_ciclo_for_error_no_do(p):
     'ciclo_for : FOR VARNAME ATR expressao passo expressao error'
     raise Exception(Erros.get('sin', p.lineno(1), 'FALTA_DO', ciclo='FOR'))
@@ -450,7 +445,7 @@ def p_fator(p):
              | valor_literal
              | l_value'''
     if len(p) == 3:
-        p[0] = {'op': p[1], 'right': p[2],'tipo':parser.sinal[p[1]]} # Unary operators
+        p[0] = {'op': p[1], 'right': p[2],'tipo':parser.sinal[p[1]]}
     elif p[1] == '(':
         p[0] = p[2]
     else:
@@ -545,7 +540,6 @@ def p_tipo_basico(p):
                    | CHAR'''
     p[0] = p[1].lower()
 
-#acho que aqui temos de separar
 def p_valor_literal(p):
     '''valor_literal : INTVALUE
                      | REALVALUE
@@ -577,7 +571,6 @@ def p_valor_constante(p):
         
         p[0] = {'tipo': 'LITERAL', 'valor': p[1], 'datatype': tipo}
     else:
-        # Handle unary + or - for constants
         val = p[2]
         if p[1] == '-':
             val = -val
@@ -589,13 +582,10 @@ def p_empty(p):
 
 def p_error(p):
     if p:
-        # Tentar inferir um contexto mais útil baseado no token e estado
         contexto = getattr(parser, 'contexto', None)
         
-        # Heurísticas para mensagens mais úteis
         sugestao = None
         if p.type == 'VARNAME':
-            # Um identificador onde não era esperado pode indicar falta de keyword
             sugestao = "Verifique se falta uma palavra-chave como 'THEN', 'DO', 'BEGIN', ou ';'."
         elif p.type == 'BEGIN':
             sugestao = "Verifique se falta ';' antes do 'BEGIN'."
@@ -624,18 +614,14 @@ def p_error(p):
             msg = Erros.get('sin', None, 'EOF_INESPERADO_CONTEXTO', 
                            contexto="Verifique se falta 'END.' no final do programa.")
     
-    # Limpar o contexto após usar
     parser.contexto = None
     
-    # Imprimir a mensagem de erro formatada
     print(msg, file=sys.stderr)
     
-    # Lançar excepção para parar o parsing (mas sem traceback feio)
     raise ErroSintaxe(msg)
 
 parser = yacc.yacc(debug=True)
 
-# Inicialização das variáveis de contexto para erros
 parser.contexto = None
 
 def set_contexto(msg):

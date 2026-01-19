@@ -18,8 +18,11 @@ begin
    UmAluno.Aprovado := true;
    
    { Atribuição a uma posição do array }
-   Turma[1] := UmAluno;
+   Turma[1].Numero := UmAluno.Numero;
+   Turma[1].Nota := UmAluno.Nota;
    
    if Turma[1].Nota > 9.5 then
-      writeln('O aluno numero ', Turma[1].Numero, ' passou.');
+      writeln('O aluno numero ', Turma[1].Numero, ' passou.')
+   else
+      writeln('O aluno numero ', Turma[1].Numero, ' reprovou.');
 end.

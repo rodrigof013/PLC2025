@@ -8,9 +8,11 @@ class GeraCod:
         self.labelCounter=0
 
     def gera_codigo(self):
+        self.emit(f'//{self.ast.get('nome','')}')
         self._abreEspacio()
         self.emit('jump main')
         self._trata_funcoes()
+        self.emit('')
         self.emit('main:')
         self.emit('start')
         self._trata_main()
@@ -142,21 +144,27 @@ class GeraCod:
             
             return
 
-    def _gerar_acesso_var_load(self, exp, funcao_atual):
-        tipo_exp = exp.get('tipo')
+    def _extrair_referencia(self, exp):
+        indices = []
+        fields = []
+        current = exp
         
-        if tipo_exp == 'ARRAY_ACCESS':
-            indices, var_node = self._extrair_indices(exp)
-            nome_var = var_node.get('nome', '')
-            fields = []
-        elif tipo_exp == 'FIELD_ACCESS':
-            fields, var_node = self._extrair_fields(exp)
-            nome_var = var_node.get('nome', '')
-            indices = []
-        else:
-            indices = []
-            fields = []
-            nome_var = exp.get('nome', '')
+        while True:
+            if current.get('tipo') == 'FIELD_ACCESS':
+                fields.insert(0, current.get('field'))
+                current = current.get('target', {})
+            elif current.get('tipo') == 'ARRAY_ACCESS':
+                curr_inds = current.get('indices', [])
+                indices = curr_inds + indices
+                current = current.get('target', {})
+            else:
+                break
+        
+        return indices, fields, current
+    
+    def _gerar_acesso_var_load(self, exp, funcao_atual):
+        indices, fields, var_node = self._extrair_referencia(exp)
+        nome_var = var_node.get('nome', '')
         
         if funcao_atual and nome_var in self.tSimb.get(funcao_atual, {}).get('vars', {}):
             info_var = self.tSimb[funcao_atual]['vars'][nome_var]
@@ -165,7 +173,7 @@ class GeraCod:
             info_var = self.tSimb[nome_var]
             is_local = False
         else:
-            print(Erros.get('ger', None, 'VAR_N_EXISTE', nome=nome_var))
+            print(Erros.get('ger', exp.get('linha'), 'VAR_N_EXISTE', nome=nome_var))
             return None
         
         sp = info_var.get('sp', 0)
@@ -264,7 +272,7 @@ class GeraCod:
                 else:
                     print(Erros.get('ger', None, 'CAMPO_N_EXISTE', nome=field_name))
                     return None
-        
+
         self.emit('load 0')
         
         if isinstance(tipo_atual, dict):
@@ -361,6 +369,14 @@ class GeraCod:
         if tipo == 'BLOCO':
             for s in stmt.get('instrucoes', []):
                 self.gera_instrucao(s, funcao_atual)
+
+        elif tipo == 'LABEL':
+            self.emit('')
+            self.emit(f'{stmt.get('label')}:')
+            self.gera_instrucao(stmt.get('instrucao'),funcao_atual)
+
+        elif tipo == 'GOTO':
+            self.emit(f'jump {stmt.get('label')}')
         
         elif tipo == 'ATRIBUICAO':
             target = stmt.get('var')
@@ -381,8 +397,10 @@ class GeraCod:
                 self.emit(f'jz {label_else}')
                 self.gera_instrucao(then_branch, funcao_atual)
                 self.emit(f'jump {label_end}')
+                self.emit('')
                 self.emit(f'{label_else}:')
                 self.gera_instrucao(else_branch, funcao_atual)
+                self.emit('')
                 self.emit(f'{label_end}:')
             else:
                 label_end = self._new_label('ENDIF')
@@ -390,22 +408,26 @@ class GeraCod:
                 self.gera_expressao(cond, funcao_atual)
                 self.emit(f'jz {label_end}')
                 self.gera_instrucao(then_branch, funcao_atual)
+                self.emit('')
                 self.emit(f'{label_end}:')
         
         elif tipo == 'WHILE':
             label_start = self._new_label('WHILE')
             label_end = self._new_label('ENDWHILE')
             
+            self.emit('')
             self.emit(f'{label_start}:')
             self.gera_expressao(stmt.get('cond'), funcao_atual)
             self.emit(f'jz {label_end}')
             self.gera_instrucao(stmt.get('do'), funcao_atual)
             self.emit(f'jump {label_start}')
+            self.emit('')
             self.emit(f'{label_end}:')
         
         elif tipo == 'REPEAT':
             label_start = self._new_label('REPEAT')
             
+            self.emit('')
             self.emit(f'{label_start}:')
             for s in stmt.get('instrucoes', []):
                 self.gera_instrucao(s, funcao_atual)
@@ -427,6 +449,7 @@ class GeraCod:
             self.gera_expressao(start_val, funcao_atual)
             self._gerar_acesso_var_store(var_node, funcao_atual)
             
+            self.emit('')
             self.emit(f'{label_start}:')
             
             self.gera_expressao(var_node, funcao_atual)
@@ -448,6 +471,7 @@ class GeraCod:
             self._gerar_acesso_var_store(var_node, funcao_atual)
             
             self.emit(f'jump {label_start}')
+            self.emit('')
             self.emit(f'{label_end}:')
         
         elif tipo == 'CASE':
@@ -476,8 +500,10 @@ class GeraCod:
                 self.emit(f'jz {label_next}')
                 self.gera_instrucao(case.get('instrucao'), funcao_atual)
                 self.emit(f'jump {label_end}')
+                self.emit('')
                 self.emit(f'{label_next}:')
             
+            self.emit('')
             self.emit(f'{label_end}:')
         
         elif tipo == 'CALL':
@@ -568,20 +594,8 @@ class GeraCod:
             self.emit('padd')
 
     def _gerar_acesso_var_store(self, exp, funcao_atual):
-        tipo_exp = exp.get('tipo')
-        
-        if tipo_exp == 'ARRAY_ACCESS':
-            indices, var_node = self._extrair_indices(exp)
-            nome_var = var_node.get('nome', '')
-            fields = []
-        elif tipo_exp == 'FIELD_ACCESS':
-            fields, var_node = self._extrair_fields(exp)
-            nome_var = var_node.get('nome', '')
-            indices = []
-        else:
-            indices = []
-            fields = []
-            nome_var = exp.get('nome', '')
+        indices, fields, var_node = self._extrair_referencia(exp)
+        nome_var = var_node.get('nome', '')
         
         if funcao_atual and nome_var in self.tSimb.get(funcao_atual, {}).get('vars', {}):
             info_var = self.tSimb[funcao_atual]['vars'][nome_var]
@@ -590,7 +604,7 @@ class GeraCod:
             info_var = self.tSimb[nome_var]
             is_local = False
         else:
-            print(Erros.get('ger', None, 'VAR_N_EXISTE', nome=nome_var))
+            print(Erros.get('ger',exp.get('linha'), 'VAR_N_EXISTE', nome=nome_var))
             return
         
         sp = info_var.get('sp', 0)
@@ -667,6 +681,7 @@ class GeraCod:
                 nome = func['nome']
                 info = self.tSimb.get(nome, {})
                 
+                self.emit('')
                 self.emit(f'{nome}:')
                 
                 vars_locais = info.get('vars', {})

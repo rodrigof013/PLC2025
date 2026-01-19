@@ -169,9 +169,11 @@ class AnalisadorSemantico:
                             self.adicionar_erro('Declarações','CONST_EXISTE',nome=const['nome'])
                             return
                         else:
-                            self.tabela_simbolos[const['nome']]={}
-                            self.tabela_simbolos[const['nome']]['categoria'] = 'const'
-                            self.tabela_simbolos[const['nome']]['datatype'] = const['val']['datatype']
+                            self.tabela_simbolos[const['nome']]={
+                                'categoria': 'const',
+                                'datatype': const['val']['datatype'],
+                                'valor': const['val']['valor']
+                            }
 
     def insTypes(self,ast):
         if ast is None:

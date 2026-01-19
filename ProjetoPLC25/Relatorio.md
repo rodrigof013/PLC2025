@@ -1,6 +1,61 @@
+<div align="center">
+
 # **Pascal Compiler Program**
 
 ![Logotipo PCP](logotipoPCP.png)
+
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+
+**Autores:** Joaquim Cunha A108572, Nuno Silva A108652, Rodrigo Fernandes A108401
+
+**Data:** 19 de janeiro de 2026
+
+</div>
+
+## Índice
+
+- [Introdução](#introdução)
+  - [Funcionalidades Suportadas](#funcionalidades-suportadas)
+  - [Exemplo de Compilação](#exemplo-de-compilação)
+  - [Estrutura do Projeto](#estrutura-do-projeto)
+- [Análise Léxica](#análise-léxica)
+  - [Tokens Reconhecidos](#tokens-reconhecidos)
+  - [Exemplo de Tokenização](#exemplo-de-tokenização)
+  - [Decisões de Implementação](#decisões-de-implementação)
+  - [Deteção de Erros](#deteção-de-erros)
+- [Análise Sintática](#análise-sintática)
+  - [Gramática Implementada](#gramática-implementada)
+  - [Estrutura da AST](#estrutura-da-ast)
+  - [Declarações Suportadas](#declarações-suportadas)
+  - [Instruções Suportadas](#instruções-suportadas)
+  - [Precedência de Operadores](#precedência-de-operadores)
+  - [Tratamento de Erros](#tratamento-de-erros)
+- [Análise Semântica](#análise-semântica)
+  - [Tabela de Símbolos](#tabela-de-símbolos)
+  - [Gestão de Tipos Complexos](#gestão-de-tipos-complexos)
+  - [Alocação de Memória](#alocação-de-memória)
+  - [Controlo de Escopo](#controlo-de-escopo)
+  - [Verificação de Tipos](#verificação-de-tipos)
+  - [Exemplo de Erro Semântico](#exemplo-de-erro-semântico)
+- [Geração de Código](#geração-de-código)
+  - [Máquina Virtual Alvo](#máquina-virtual-alvo)
+  - [Estrutura do Código Gerado](#estrutura-do-código-gerado)
+  - [Exemplo Completo de Compilação](#exemplo-completo-de-compilação)
+  - [Tratamento de Expressões](#tratamento-de-expressões)
+  - [Coerção de Tipos](#coerção-de-tipos)
+  - [Estruturas de Controlo](#estruturas-de-controlo)
+  - [Funções e Procedimentos](#funções-e-procedimentos)
+  - [Acesso a Arrays e Records](#acesso-a-arrays-e-records)
+- [Conclusão](#conclusão)
+  - [Funcionalidades Implementadas](#funcionalidades-implementadas)
+  - [Testes Realizados](#testes-realizados)
+  - [Reflexão Final](#reflexão-final)
 
 ## **Introdução**
 
@@ -44,7 +99,7 @@ stop
 
 O compilador está organizado nos seguintes módulos:
 
-![Imagem da estrutura](esquemaFuncionamento.svg)
+![Imagem da estrutura](esquemaFuncionamento.png)
 
 | Ficheiro     | Descrição                                                        |
 | ------------ | ---------------------------------------------------------------- |
@@ -357,13 +412,13 @@ O código gerado destina-se a uma máquina virtual de pilha com as seguintes ins
 O método `gera_codigo` produz a seguinte estrutura:
 
 ```
-                   ; (alocação de variáveis globais - ANTES de tudo)
-jump main          ; Salta para o programa principal
-                   ; (definições de funções aqui)
+                   // (alocação de variáveis globais - ANTES de tudo)
+jump main          // Salta para o programa principal
+                   // (definições de funções aqui)
 main:
-start              ; Início do programa
-                   ; (instruções do bloco principal)
-stop               ; Fim do programa
+start              // Início do programa
+                   // (instruções do bloco principal)
+stop               // Fim do programa
 ```
 
 A alocação de variáveis globais é feita **antes** do `jump main`, através do método `_abreEspacio`, que percorre a tabela de símbolos e emite instruções de inicialização (`pushi 0`, `pushf 0`, `pushn n`) para cada variável.
@@ -386,20 +441,20 @@ end.
 **Código Gerado:**
 
 ```
-pushi 0            ; aloca 'a' (sp=0)co
-pushi 0            ; aloca 'b' (sp=1)
-pushi 0            ; aloca 'resultado' (sp=2)
+pushi 0            // aloca 'a' (sp=0)co
+pushi 0            // aloca 'b' (sp=1)
+pushi 0            // aloca 'resultado' (sp=2)
 jump main
 main:
 start
 pushi 5
-storeg 0           ; a := 5
+storeg 0           // a := 5
 pushi 3
-storeg 1           ; b := 3
-pushg 0            ; carrega 'a'
-pushg 1            ; carrega 'b'
-add                ; a + b
-storeg 2           ; resultado := ...
+storeg 1           // b := 3
+pushg 0            // carrega 'a'
+pushg 1            // carrega 'b'
+add                // a + b
+storeg 2           // resultado := ...
 pushs "Resultado: "
 writes
 pushg 2
@@ -419,12 +474,12 @@ x := (a + b) * c;
 Gera:
 
 ```
-pushg 0            ; empilha 'a'
-pushg 1            ; empilha 'b'
-add                ; a + b
-pushg 2            ; empilha 'c'
-mul                ; (a + b) * c
-storeg 3           ; guarda em 'x'
+pushg 0            // empilha 'a'
+pushg 1            // empilha 'b'
+add                // a + b
+pushg 2            // empilha 'c'
+mul                // (a + b) * c
+storeg 3           // guarda em 'x'
 ```
 
 ### Coerção de Tipos
@@ -452,10 +507,10 @@ else
 Gera:
 
 ```
-pushg 0            ; x
-pushi 0            ; 0
-sup                ; x > 0
-jz ELSE1           ; salta se falso
+pushg 0            // x
+pushi 0            // 0
+sup                // x > 0
+jz ELSE1           // salta se falso
 pushs "positivo"
 writes
 writeln
@@ -488,10 +543,10 @@ Para sub-rotinas, o gerador:
 **Chamada:**
 
 ```
-; empilha argumentos
+...                // empilha argumentos
 pusha funcao_nome
 call
-pop n              ; limpa argumentos da pilha
+pop n              // limpa argumentos da pilha
 ```
 
 ### Acesso a Arrays e Records
@@ -505,15 +560,15 @@ arr[i] := 10;      { arr é array[1..10] of integer }
 Gera:
 
 ```
-pushgp             ; base pointer
-pushi 0            ; offset base do array
-padd               ; endereço base
-pushg ...          ; valor de 'i'
-pushi 1            ; subtrai limite inferior
+pushgp             // base pointer
+pushi 0            // offset base do array
+padd               // endereço base
+pushg ...          // valor de 'i'
+pushi 1            // subtrai limite inferior
 sub
-padd               ; endereço final
+padd               // endereço final
 pushi 10
-storen             ; guarda valor
+storen             // guarda valor
 ```
 
 # **Conclusão**
@@ -539,7 +594,7 @@ Foram desenvolvidos 13 programas de teste cobrindo diferentes funcionalidades:
 | ------------ | ---------------------------------- |
 | `teste1.pp`  | Hello World básico                 |
 | `teste5.pp`  | Função (conversão binário→inteiro) |
-| `teste8.pp`  | Case-insensitivity                 |
+| `teste9.pp`  | Estrutura Complexa                 |
 | `teste11.pp` | Arrays e ciclos                    |
 | `teste12.pp` | Records                            |
 
